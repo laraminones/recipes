@@ -15,5 +15,6 @@ class QuotesSpider(scrapy.Spider):
 		page = response.url.split("=")[-1]
 		filename = f'recipes-{page}.html'
 		with open(filename, 'wb') as f:
-			for link in response.css('entry-title-link'):
-				f.write('link :' + link.attrib['href'].get())
+			for link in [link.attrib['href'] in response.css('.entry-title-link').getall():
+				self.log("--------------------------")
+				self.log(link)
