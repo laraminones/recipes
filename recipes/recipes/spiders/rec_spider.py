@@ -12,16 +12,15 @@ class QuotesSpider(scrapy.Spider):
 		yield scrapy.Request(url=self.url+str(self.page), callback=self.parse)
 
 	def parse(self, response):
+		last = True
 		for link in [link.attrib['href'] for link in response.css('.entry-title-link')]:
+			last = False
 			meta = {
 				'recipe_url': link
 			}
 			yield scrapy.Request(url=link, callback=self.parse_recipe, meta=meta)
 
-		self.log('fuera---------------------------------------------------------')
-		next_page = response.css('pagination-next').getall()
-		if next_page is not None:
-			self.log('dentro----------------------------------------------------')
+		if last == False:
 			self.page+=1
 			yield scrapy.Request(url=self.url+str(self.page), callback=self.parse)
 
