@@ -16,5 +16,3 @@ with open(index_filename, "r") as index_file:
     es.index(index='recipe_index', ignore=400, doc_type='docket', 
     id=i, body=docket_content)
     i = i + 1
-
-
