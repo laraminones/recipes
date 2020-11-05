@@ -9,10 +9,13 @@ res = requests.get('http://localhost:9200')
 es = Elasticsearch([{'host': 'localhost', 'port': '9200'}])
 
 # ignore=400 to ignore Elastic format errors on json fields
-with open(index_filename, "r") as index_file:
-  i = 1
-  for line in list(index_file):
-    docket_content = line
-    es.index(index='recipe_index', ignore=400, doc_type='docket', 
-    id=i, body=docket_content)
-    i = i + 1
+with open(index_filename, 'r') as index_file:
+  rec_list = list(index_file)
+
+recipes = [{key: json.loads(line)[key] for key in json.loads(line).keys()}
+			 for line in rec_list]
+
+i = 1
+for rec in recipes:
+	es.index(index='recipe_index', ignore=400, id=i, body=rec)
+	i = i + 1

@@ -7,6 +7,7 @@ def recsearch(rec_prep_time=""):
     q = Q("match", rec_prep_time='20')
     s = Search(index="recipes_index").using(client)#.query(q)
     response = s.execute()
+    print(response)
     print('Total %s hits found.' % response.hits.total.value)
     search = get_results(response)
     return search
@@ -14,7 +15,7 @@ def recsearch(rec_prep_time=""):
 def get_results(response):
     results = []
     for hit in response:
-        results.append(hit.rec_title)
+        results.append(hit)
     return results
 
 if __name__ == '__main__':  
