@@ -2,7 +2,7 @@ import requests, json, os
 from elasticsearch import Elasticsearch
 
 # TODO - allow users to specify the index_file
-index_filename = 'recipes.json'
+index_filename = 'recipes.jsonlines'
 
 # TODO - network and connection checks
 res = requests.get('http://localhost:9200')
