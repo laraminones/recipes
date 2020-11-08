@@ -7,7 +7,7 @@ def search_index(request):
 	rec_ingredients_term = ""
 
 	if request.GET.get('rec_ingredients'):
-		rec_prep_time_term = request.GET['rec_ingredients']
+		rec_ingredients_term = request.GET['rec_ingredients']
 
 	search_term = rec_ingredients_term
 	results = recsearch(rec_ingredients=rec_ingredients_term)

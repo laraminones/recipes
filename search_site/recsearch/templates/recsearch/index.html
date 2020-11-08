@@ -1,23 +1,45 @@
 <!doctype html>
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
 <html>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="rec_ingredients" aria-label="rec_ingredients" name = 'rec_ingredients' value = "">
+      <input class="form-control mr-sm-2" type="search" placeholder="rec_ingredients" aria-label="rec_ingredients" name = 'rec_ingredients' value = ""/>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
 </nav>
 {% if results %}
-  <div class="txtCentrado margenSup20 grisDC">
-    <h3>We found {{ count }} result/s for your search </h3>
+  <div class="container">
+    {% for mytuple in results %}
+    <div class="well">
+      <div class="media">
+        <a class="pull-left" href="#">
+        <img class="media-object" src="http://placekitten.com/150/150">
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading">{{ mytuple.0 }}</h4>
+          <p>{{ mytuple.1 }}</p>
+          <ul class="list-inline list-unstyled">
+            <li>
+              <span>
+                <i class="glyphicon glyphicon-calendar"></i> {{ mytuple.1 }} 
+              </span>
+            </li>
+            <li>|</li>
+            <span>
+              <i class="glyphicon glyphicon-comment"></i> {{ mytuple.2 }}
+            </span>
+          </ul>
+       </div>
     </div>
-      <div class="search results">
-        {% for mytuple in results %}
-          {{ mytuple.0 }}
-          {{ mytuple.1 }}
-        {% endfor %}
-      </div>
+  </div>
+  {% endfor %}
+
 {% elif not search_term %}
   <h3>Insert your search here.</h3>
 {% elif not results %}

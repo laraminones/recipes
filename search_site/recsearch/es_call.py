@@ -14,8 +14,15 @@ def recsearch(rec_ingredients=""):
 def get_results(response):
     results = []
     for hit in response:
-        results.append([hit.rec_title, hit.rec_prep_time])
+        results.append([hit.rec_title,
+            hit.rec_prep_time,
+            hit.rec_cook_time,
+            hit.rec_ingredients,
+            hit.rec_instructions])
     return results
 
 if __name__ == '__main__':  
-    print("rec_prep_time 20 details:\n", recsearch(rec_ingredients = "parsley"))
+    found = recsearch(rec_ingredients = "salt")
+    print("rec_prep_time 20 details:\n")
+    for f in found:
+    	print(f)
