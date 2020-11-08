@@ -4,13 +4,13 @@ from .es_call import recsearch
 
 def search_index(request):
 	results = []
-	rec_prep_time_term = ""
+	rec_ingredients_term = ""
 
-	if request.GET.get('rec_prep_time'):
-		rec_prep_time_term = request.GET['rec_prep_time']
+	if request.GET.get('rec_ingredients'):
+		rec_prep_time_term = request.GET['rec_ingredients']
 
-	search_term = rec_prep_time_term
-	results = recsearch(rec_prep_time=rec_prep_time_term)
+	search_term = rec_ingredients_term
+	results = recsearch(rec_ingredients=rec_ingredients_term)
 	print(results)
 	context = {'results': results, 'count': len(results), 'search_term': search_term}
 
