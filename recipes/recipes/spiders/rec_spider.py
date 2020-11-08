@@ -29,12 +29,14 @@ class QuotesSpider(scrapy.Spider):
 		rec_title = response.css('.wprm-recipe-name::text')[0].get()
 		rec_prep_time = response.css('.wprm-recipe-prep_time::text')[0].get()
 		rec_cook_time = response.css('.wprm-recipe-cook_time::text')[0].get()
-		#rec_servings = response.css('.wprm-recipe-servings::text')[0]
+		rec_servings = response.css('.wprm-recipe-servings::text')[0]
 		rec_ingredients = response.css('.wprm-recipe-ingredient-name::text').getall()
 		#rec_ingredients_amount = response.css('.wprm-recipe-ingredient-amount::text').getall()
 		rec_instructions = response.css('.wprm-recipe-instruction-text *::text').getall()
 
+
 		self.log(rec_title)
+		self.log(rec_servings)
 		self.log(rec_prep_time)
 		self.log(rec_cook_time)
 		self.log(rec_ingredients)
@@ -46,5 +48,6 @@ class QuotesSpider(scrapy.Spider):
 			'rec_cook_time' : rec_cook_time,
 			'rec_ingredients' : rec_ingredients,
 			'rec_instructions' : rec_instructions,
+			'rec_servings' : rec_servings
 		}
 

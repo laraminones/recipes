@@ -15,3 +15,7 @@ def search_index(request):
 	context = {'results': results, 'count': len(results), 'search_term': search_term}
 
 	return render(request, 'recsearch/index.html', context)
+
+def show_view(request, rec_title):
+	context = {'rec_title' : rec_title}
+	return render(request, 'recsearch/show.html', context)
