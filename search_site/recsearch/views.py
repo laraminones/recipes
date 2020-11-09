@@ -16,6 +16,6 @@ def search_index(request):
 
 	return render(request, 'recsearch/index.html', context)
 
-def show_view(request, rec_title):
-	context = {'rec_title' : rec_title}
+def show_view(request):
+	context = {'rec_title' : 'uwu'}
 	return render(request, 'recsearch/show.html', context)

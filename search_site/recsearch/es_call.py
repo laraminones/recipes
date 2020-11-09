@@ -18,7 +18,9 @@ def get_results(response):
             hit.rec_prep_time,
             hit.rec_cook_time,
             hit.rec_ingredients,
-            hit.rec_instructions])
+            hit.rec_instructions,
+            hit.rec_servings,
+            hit.rec_img])
     return results
 
 if __name__ == '__main__':  
