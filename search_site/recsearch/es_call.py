@@ -13,13 +13,13 @@ def recshow(rec_id):
 
 def get_show_result(response):
     hit = response[0]
-    result = [hit.rec_title,
-        hit.rec_prep_time,
-        hit.rec_cook_time,
-        hit.rec_ingredients,
-        hit.rec_instructions,
-        hit.rec_servings,
-        hit.rec_img]
+    result = {'title': hit.rec_title,
+        'prep_time': hit.rec_prep_time,
+        'cook_time': hit.rec_cook_time,
+        'ingredients': hit.rec_ingredients,
+        'instructions': hit.rec_instructions,
+        'servings': hit.rec_servings,
+        'img': hit.rec_img}
     return result
 
 def recsearch(rec_ingredients=""):

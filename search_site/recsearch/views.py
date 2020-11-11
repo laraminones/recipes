@@ -18,5 +18,5 @@ def search_index(request):
 
 def show_view(request,recipe_id):
 	result = recshow(rec_id=recipe_id)
-	context = {'data' : result}
+	context = result
 	return render(request, 'recsearch/show.html', context)
