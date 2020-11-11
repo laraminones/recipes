@@ -18,24 +18,24 @@
     {% for mytuple in results %}
     <div class="well">
       <div class="media">
-        <img class="media-object" src="{{ mytuple.6 }}">
+        <img class="media-object" src="{{ mytuple.img }}">
       </a>
       <div class="media-body">
-        <h4><a href="{% url 'recsearch:show_view' mytuple.7 %}"> {{ mytuple.0 }} </a></h4>
-          <p>{{ mytuple.4 }}</p>
+        <h4><a href="{% url 'recsearch:show_view' mytuple.id %}"> {{ mytuple.title }} </a></h4>
+          <p>{{ mytuple.summary }}</p>
           <ul class="list-inline list-unstyled">
             <li>
               <span>
-                <i class="glyphicon glyphicon-cutlery"></i><b> Servings:</b> {{ mytuple.5 }} 
+                <i class="glyphicon glyphicon-cutlery"></i><b> Servings:</b> {{ mytuple.servings }} 
               </span>
             </li>
             <li>|</li>
             <span>
-              <i class="glyphicon glyphicon-time"></i><b> Prep Time:</b>  {{ mytuple.1 }}
+              <i class="glyphicon glyphicon-time"></i><b> Prep Time:</b>  {{ mytuple.prep_time }}
             </span>
             <li>|</li>
             <span>
-              <i class="glyphicon glyphicon-time"></i><b> Cook Time:</b> {{ mytuple.2 }}
+              <i class="glyphicon glyphicon-time"></i><b> Cook Time:</b> {{ mytuple.cook_time }}
             </span>
           </ul>
        </div>

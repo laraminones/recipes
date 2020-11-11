@@ -33,15 +33,28 @@ def recsearch(rec_ingredients=""):
 def get_search_results(response):
     results = []
     for hit in response:
-        results.append([hit.rec_title,
-            hit.rec_prep_time,
-            hit.rec_cook_time,
-            hit.rec_ingredients,
-            hit.rec_instructions,
-            hit.rec_servings,
-            hit.rec_img,
-            hit.meta.id])
+        results.append({
+            'title' : hit.rec_title,
+            'prep_time': hit.rec_prep_time,
+            'cook_time': hit.rec_cook_time,
+            'summary': get_summary(hit.rec_instructions),
+            'servings': hit.rec_servings,
+            'img': hit.rec_img,
+            'id': hit.meta.id})
     return results
+
+def get_summary(instructions):
+    left = 250
+    i = 0
+    summary = ""
+    while left>0 and i<len(instructions)-1:
+        instr = instructions[i]
+        to_add = (len(instr) if left > len(instr) else left )
+        summary += " "+instr[0:to_add]
+        left -= to_add
+        i += 1
+    return summary + "..."
+    
 
 if __name__ == '__main__':  
     found = recsearch(rec_ingredients = "salt")
