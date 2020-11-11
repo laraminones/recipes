@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .es_call import recsearch
+from .es_call import recsearch, recshow
 
 def search_index(request):
 	results = []
@@ -16,6 +16,7 @@ def search_index(request):
 
 	return render(request, 'recsearch/index.html', context)
 
-def show_view(request):
-	context = {'rec_title' : 'uwu'}
+def show_view(request,recipe_id):
+	result = recshow(rec_id=recipe_id)
+	context = {'data' : result}
 	return render(request, 'recsearch/show.html', context)

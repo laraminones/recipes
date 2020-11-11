@@ -18,12 +18,11 @@
     {% for mytuple in results %}
     <div class="well">
       <div class="media">
-        <a class="pull-left" href="#">
         <img class="media-object" src="{{ mytuple.6 }}">
       </a>
       <div class="media-body">
-        <h4><a href="{% url 'recsearch:show_view' %}"> {{ mytuple.0 }} </a></h4>
-          <p>{{ mytuple. }}</p>
+        <h4><a href="{% url 'recsearch:show_view' mytuple.7 %}"> {{ mytuple.0 }} </a></h4>
+          <p>{{ mytuple.4 }}</p>
           <ul class="list-inline list-unstyled">
             <li>
               <span>
