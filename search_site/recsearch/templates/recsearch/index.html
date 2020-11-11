@@ -18,30 +18,29 @@
     {% for mytuple in results %}
     <div class="well">
       <div class="media">
-        <img class="media-object" src="{{ mytuple.img }}">
-      </a>
-      <div class="media-body">
-        <h4><a href="{% url 'recsearch:show_view' mytuple.id %}"> {{ mytuple.title }} </a></h4>
-          <p>{{ mytuple.summary }}</p>
-          <ul class="list-inline list-unstyled">
-            <li>
+        <img class="media-object" style="float:left; margin:10px" src="{{ mytuple.img }}">
+        <div class="media-body">
+          <h4><a href="{% url 'recsearch:show_view' mytuple.id %}"> {{ mytuple.title }} </a></h4>
+            <p>{{ mytuple.summary }}</p>
+            <ul class="list-inline list-unstyled">
+              <li>
+                <span>
+                  <i class="glyphicon glyphicon-cutlery"></i><b> Servings:</b> {{ mytuple.servings }} 
+                </span>
+              </li>
+              <li>|</li>
               <span>
-                <i class="glyphicon glyphicon-cutlery"></i><b> Servings:</b> {{ mytuple.servings }} 
+                <i class="glyphicon glyphicon-time"></i><b> Prep Time:</b>  {{ mytuple.prep_time }}
               </span>
-            </li>
-            <li>|</li>
-            <span>
-              <i class="glyphicon glyphicon-time"></i><b> Prep Time:</b>  {{ mytuple.prep_time }}
-            </span>
-            <li>|</li>
-            <span>
-              <i class="glyphicon glyphicon-time"></i><b> Cook Time:</b> {{ mytuple.cook_time }}
-            </span>
-          </ul>
-       </div>
+              <li>|</li>
+              <span>
+                <i class="glyphicon glyphicon-time"></i><b> Cook Time:</b> {{ mytuple.cook_time }}
+              </span>
+            </ul>
+         </div>
+      </div>
     </div>
-  </div>
-  {% endfor %}
+    {% endfor %}
 
 {% elif not search_term %}
   <h3>Insert your search here.</h3>
