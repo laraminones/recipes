@@ -4,15 +4,18 @@ from .es_call import recsearch, recshow
 
 def search_index(request):
 	results = []
-	rec_ingredients_term = ""
+	search_terms = []
 
-	if request.GET.get('rec_ingredients'):
-		rec_ingredients_term = request.GET['rec_ingredients']
+	i = 0;
+	while i<10 and request.GET.get('ingr'+str(i)) != None:
+		ingredient = request.GET.get('ingr' + str(i))
+		print(ingredient)
+		search_terms.append(ingredient)
+		i+=1
 
-	search_term = rec_ingredients_term
-	results = recsearch(rec_ingredients=rec_ingredients_term)
+	results = recsearch(rec_ingredients=search_terms)
 	print(results)
-	context = {'results': results, 'count': len(results), 'search_term': search_term}
+	context = {'results': results, 'count': len(results), 'search_terms': search_terms}
 
 	return render(request, 'recsearch/index.html', context)
 

@@ -3,6 +3,30 @@
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script>
+$(document).ready(function() {
+    var max_fields      = 10;
+    var wrapper         = $(".container1");
+    var add_button      = $(".add_form_field");
+ 
+    var x = 1;
+    $(add_button).click(function(e){
+        e.preventDefault();
+        if(x < max_fields){
+            $(wrapper).append('<div><input class="form-control mr-sm-2" type="text" name="ingr'+x+'"/><a href="#" class="delete">Delete</a></div>'); //add input box
+            x++;
+        }
+  else
+  {
+  alert('You Reached the limits')
+  }
+    });
+ 
+    $(wrapper).on("click",".delete", function(e){
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+});
+</script>
 </head>
 <html>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -13,6 +37,13 @@
     </form>
   </div>
 </nav>
+<button class="add_form_field">Add Ingredient &nbsp; <span style="font-size:16px; font-weight:bold;">+ </span></button>
+<form class="form-inline my-2 my-lg-0">
+  <div class="container1 form-inline my-2 my-lg-0">
+      <div><input class="form-control mr-sm-2" type="text" name="ingr0"></div>
+  </div>
+  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+</form>
 {% if results %}
   <h5>{{ results|length }} recipes found</h5>
   <div class="container">

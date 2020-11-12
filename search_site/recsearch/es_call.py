@@ -22,9 +22,9 @@ def get_show_result(response):
         'img': hit.rec_img}
     return result
 
-def recsearch(rec_ingredients=""):
+def recsearch(rec_ingredients=[]):
     client = Elasticsearch()
-    q = Q('bool', must=[Q('term', rec_ingredients=rec_ingredients)])
+    q = Q('bool', must=[Q('term', rec_ingredients=ingr) for ingr in rec_ingredients])
     s = Search(index="recipe_index").using(client).query(q)
     s = s[0:s.count()] 
     response = s.execute()
