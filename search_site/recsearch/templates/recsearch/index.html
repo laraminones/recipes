@@ -8,12 +8,13 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="rec_ingredients" aria-label="rec_ingredients" name = 'rec_ingredients' value = ""/>
+      <input class="form-control mr-sm-2" type="search" placeholder="Search by ingredient..." aria-label="rec_ingredients" name = 'rec_ingredients' value = ""/>
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
 </nav>
 {% if results %}
+  <h5>{{ results|length }} recipes found</h5>
   <div class="container">
     {% for mytuple in results %}
     <div class="well">

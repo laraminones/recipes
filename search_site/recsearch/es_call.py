@@ -25,7 +25,8 @@ def get_show_result(response):
 def recsearch(rec_ingredients=""):
     client = Elasticsearch()
     q = Q('bool', must=[Q('term', rec_ingredients=rec_ingredients)])
-    s = Search(index="recipe_index").using(client).query(q) 
+    s = Search(index="recipe_index").using(client).query(q)
+    s = s[0:s.count()] 
     response = s.execute()
     search = get_search_results(response)
     return search
