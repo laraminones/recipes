@@ -2,6 +2,7 @@ from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search, Q
 from elasticsearch_dsl.query import Query
 from elasticsearch_dsl.query import MultiMatch, Match
+import functools
 
 def recshow(rec_id):
     client = Elasticsearch()
