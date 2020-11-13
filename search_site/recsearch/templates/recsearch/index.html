@@ -29,51 +29,54 @@ $(document).ready(function() {
 </script>
 </head>
 <html>
-<div class="presentation">
-	<h1 style="font-family:'Baskerville';text-align:center">Recsearch - What do we eat today?</h1>
-</div>
-<div class="search-box" style="margin:auto;width:25%">
-	<form class="form-inline my-2 my-lg-0">
-	  <div class="container1 form-inline my-2 my-lg-0">
-	      <div><input class="form-control mr-sm-2" type="text" name="ingr0" placeholder="Search by ingredient..."></div>
-	  </div>
-	  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-	  <button class="add_form_field">Add Ingredient &nbsp; <span style="font-size:16px; font-weight:bold;">+ </span></button>
-	</form>
-</div>
-{% if results %}
-  <h5 style="text-align:center">{{ results|length }} recipes found</h5>
-  <div class="container">
-    {% for mytuple in results %}
-    <div class="well">
-      <div class="media">
-        <img class="media-object" style="float:left; margin:10px" src="{{ mytuple.img }}">
-        <div class="media-body">
-          <h4><a href="{% url 'recsearch:show_view' mytuple.id %}"> {{ mytuple.title }} </a></h4>
-            <p>{{ mytuple.summary }}</p>
-            <ul class="list-inline list-unstyled">
-              <li>
-                <span>
-                  <i class="glyphicon glyphicon-cutlery"></i><b> Servings:</b> {{ mytuple.servings }} 
-                </span>
-              </li>
-              <li>|</li>
-              <span>
-                <i class="glyphicon glyphicon-time"></i><b> Prep Time:</b>  {{ mytuple.prep_time }}
-              </span>
-              <li>|</li>
-              <span>
-                <i class="glyphicon glyphicon-time"></i><b> Cook Time:</b> {{ mytuple.cook_time }}
-              </span>
-            </ul>
-         </div>
-      </div>
-    </div>
-    {% endfor %}
+<body style="background-color: #ebcbb0">
+	<div class="presentation">
+		<h1 style="font-family:'Baskerville';text-align:center">Recsearch - What do we eat today?</h1>
+	</div>
+	<div class="search-box" style="margin:auto;width:25%">
+		<form class="form-inline my-2 my-lg-0">
+		  <div class="container1 form-inline my-2 my-lg-0">
+		      <div><input class="form-control mr-sm-2" type="text" name="ingr0" placeholder="Search by ingredient..."></div>
+		  </div>
+		  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		  <button class="add_form_field">Add Ingredient &nbsp; <span style="font-size:16px; font-weight:bold;">+ </span></button>
+		</form>
+	</div>
+	{% if results %}
+	  <h5 style="text-align:center">{{ results|length }} recipes found</h5>
+	  <div class="container">
+	    {% for mytuple in results %}
+	    <div class="well">
+	      <div class="media">
+	        <img class="media-object" style="float:left; margin:10px" src="{{ mytuple.img }}">
+	        <div class="media-body">
+	          <h4><a href="{% url 'recsearch:show_view' mytuple.id %}"> {{ mytuple.title }} </a></h4>
+	            <p>{{ mytuple.summary }}</p>
+	            <ul class="list-inline list-unstyled">
+	              <li>
+	                <span>
+	                  <i class="glyphicon glyphicon-cutlery"></i><b> Servings:</b> {{ mytuple.servings }} 
+	                </span>
+	              </li>
+	              <li>|</li>
+	              <span>
+	                <i class="glyphicon glyphicon-time"></i><b> Prep Time:</b>  {{ mytuple.prep_time }}
+	              </span>
+	              <li>|</li>
+	              <span>
+	                <i class="glyphicon glyphicon-time"></i><b> Cook Time:</b> {{ mytuple.cook_time }}
+	              </span>
+	            </ul>
+	         </div>
+	      </div>
+	    </div>
+	    {% endfor %}
 
-{% elif not search_term %}
-  <h3>Insert your search here.</h3>
-{% elif not results %}
-  <p>No results found.</p>
-{% endif %}
+	{% elif not search_term %}
+	  <h3>Insert your search here.</h3>
+	{% elif not results %}
+	  <p>No results found.</p>
+	{% endif %}
+	</div>
+</body>
 </html>
