@@ -12,6 +12,9 @@
 .container .img{
     text-align:center;
 }
+.container .instructions{
+    border-left:1px;
+}
 .container .details{
     border-left:3px solid #ded4da;
 }
@@ -32,5 +35,22 @@
         | <i class="glyphicon glyphicon-time"></i> Prep Time:  {{ prep_time }}
         | <i class="glyphicon glyphicon-time"></i> Cook Time:  {{ cook_time }}
       </p>
+    </div>
+    <div class="col-md-6 details">
+      <b>Ingredients: </b>
+      {% for i in ingredients %}
+          {% if forloop.last %}
+            {{i}}.
+          {% else %}
+            {{i}},
+          {% endif %}
+      {% endfor %}
+    </div>
+    <div class="col-md-10">
+      <h3>Instructions:</h5>
+      <hr style="width:100%;text-align:left;margin-left:0">
+      {% for i in instructions %}
+        <br><i class="glyphicon glyphicon-minus"></i> {{i}} </br>
+      {% endfor %}
     </div>
   </div>
