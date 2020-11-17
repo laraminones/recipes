@@ -7,10 +7,11 @@ def search_index(request):
 	search_terms = []
 
 	i = 0;
-	while i<10 and request.GET.get('ingr'+str(i)) != None:
+	while i<10:
 		ingredient = request.GET.get('ingr' + str(i))
-		print(ingredient)
-		search_terms.append(ingredient)
+		if ingredient !=  None:
+			print(ingredient)
+			search_terms.append(ingredient)
 		i+=1
 
 	results = recsearch(rec_ingredients=search_terms)

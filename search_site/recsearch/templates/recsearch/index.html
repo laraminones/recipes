@@ -9,11 +9,16 @@ $(document).ready(function() {
     var wrapper         = $(".container1");
     var add_button      = $(".add_form_field");
  
-    var x = 1;
+    var x = 0;
+
     $(add_button).click(function(e){
         e.preventDefault();
         if(x < max_fields){
-            $(wrapper).append('<div><input class="form-control mr-sm-2" type="text" name="ingr'+x+'"/><a href="#" class="delete">Delete</a></div>'); //add input box
+            $(wrapper).append('<div><input class="form-control mr-sm-2" type="text" name="ingr'+({{ search_terms|length }} + x)+'"/>');
+            if(x > 1) {
+            	$(wrapper).append('<a href="#" class="delete">Delete</a>');
+           	} 
+            $(wrapper).append('</div>'); //add input box
             x++;
         }
   else
@@ -36,7 +41,14 @@ $(document).ready(function() {
 	<div class="search-box" style="margin:auto;width:25%">
 		<form class="form-inline my-2 my-lg-0">
 		  <div class="container1 form-inline my-2 my-lg-0">
-		      <div><input class="form-control mr-sm-2" type="text" name="ingr0" placeholder="Search by ingredient..."></div>
+		      {% if search_terms %}
+		        {% for term in search_terms %}
+		        	<div><input class="form-control mr-sm-2" type="text" name="ingr{{ forloop.counter0 }}"
+		        		value='{{ term }}'><a href="#" class="delete">Delete</a></div>
+		        {% endfor %}
+		      {% else %}
+		      	<div><input class="form-control mr-sm-2" type="text" name="ingr0" placeholder="Search by ingredient..."></div>
+		      {% endif %}
 		  </div>
 		  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 		  <button class="add_form_field">Add Ingredient &nbsp; <span style="font-size:16px; font-weight:bold;">+ </span></button>
