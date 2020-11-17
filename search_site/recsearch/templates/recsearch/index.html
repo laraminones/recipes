@@ -43,9 +43,10 @@ $(document).ready(function() {
 		</form>
 	</div>
 	{% if results %}
-	  <h5 style="text-align:center">{{ results|length }} recipes found</h5>
+	  <h5 style="text-align:center">{{ count }} recipes found</h5>
 	  <div class="container">
-	    {% for mytuple in results %}
+	    {% for key,value in results.items %}
+	    {% for mytuple in value.docs %}
 	    <div class="well">
 	      <div class="media">
 	        <img class="media-object" style="float:left; margin:10px" src="{{ mytuple.img }}">
@@ -70,6 +71,7 @@ $(document).ready(function() {
 	         </div>
 	      </div>
 	    </div>
+	    {% endfor %}
 	    {% endfor %}
 
 	{% elif not search_term %}

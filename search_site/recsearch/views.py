@@ -15,7 +15,7 @@ def search_index(request):
 
 	results = recsearch(rec_ingredients=search_terms)
 	print(results)
-	context = {'results': results, 'count': len(results), 'search_terms': search_terms}
+	context = {'results': results[0], 'count': results[1], 'search_terms': search_terms}
 
 	return render(request, 'recsearch/index.html', context)
 
