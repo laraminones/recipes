@@ -15,6 +15,89 @@ with open(index_filename, 'r') as index_file:
 recipes = [{key: json.loads(line)[key] for key in json.loads(line).keys()}
 			 for line in rec_list]
 
+doc = {
+    "body":{
+            "settings" : {
+                "analysis" : {
+                    "analyzer" : {
+                        "my_ngram_analyzer" : {
+                            "tokenizer" : "my_ngram_tokenizer"
+                        }
+                    },
+                    "tokenizer" : {
+                        "my_ngram_tokenizer" : {
+                            "type" : "nGram",
+                            "min_gram" : "2",
+                            "max_gram" : "3",
+                            "token_chars": [ "letter", "digit" ]
+                        }
+                    }
+                }
+            },
+            "mapping":{
+                "properties":{
+                    "rec_cook_time": {
+                        "type":"text",
+                        "fields":{
+                            "keyword":{
+                                "type":"keyword",
+                                "ignore_adove":256
+                            }
+                        }
+                    },
+                    "rec_img": {
+                        "type":"text",
+                        "fields":{
+                            "keyword":{
+                                "type":"keyword",
+                                "ignore_adove":256
+                            }
+                        }
+                    },
+                    "rec_ingredients": {
+                        "type":"text",
+                        "fields":{
+                            "keyword":{
+                                "type":"keyword",
+                                "ignore_adove":256
+                            }
+                        }
+                    },
+                    "rec_prep_time": {
+                        "type":"text",
+                        "fields":{
+                            "keyword":{
+                                "type":"keyword",
+                                "ignore_adove":256
+                            }
+                        }
+                    },
+                    "rec_servings": {
+                        "type":"text",
+                        "fields":{
+                            "keyword":{
+                                "type":"keyword",
+                                "ignore_adove":256
+                            }
+                        }
+                    },
+                    "rec_title": {
+                        "type":"text",
+                        "fields":{
+                            "keyword":{
+                                "type":"keyword",
+                                "ignore_adove":256
+                            }
+                        }
+                    },
+                }
+            }
+
+    }
+}
+
+es.index(index='recipe_index',body=doc)
+
 i = 1
 for rec in recipes:
 	es.index(index='recipe_index', ignore=400, id=i, body=rec)
