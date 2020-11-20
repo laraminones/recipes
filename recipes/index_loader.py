@@ -20,16 +20,8 @@ doc = {
             "settings" : {
                 "analysis" : {
                     "analyzer" : {
-                        "my_ngram_analyzer" : {
-                            "tokenizer" : "my_ngram_tokenizer"
-                        }
-                    },
-                    "tokenizer" : {
-                        "my_ngram_tokenizer" : {
-                            "type" : "nGram",
-                            "min_gram" : "2",
-                            "max_gram" : "3",
-                            "token_chars": [ "letter", "digit" ]
+                        "my_analyzer" : {
+                            "filter": [ "lowercase", "stemmer" ]
                         }
                     }
                 }
@@ -56,9 +48,11 @@ doc = {
                     },
                     "rec_ingredients": {
                         "type":"text",
+                        "analyzer": "my_analyzer",
+                        "search_analyzer": "my_analyzer",
                         "fields":{
                             "keyword":{
-                                "type":"keyword",
+                                "type":"keyword",                               
                                 "ignore_adove":256
                             }
                         }
@@ -83,6 +77,8 @@ doc = {
                     },
                     "rec_title": {
                         "type":"text",
+                        "analyzer": "my_analyzer",
+                        "search_analyzer": "my_analyzer",
                         "fields":{
                             "keyword":{
                                 "type":"keyword",

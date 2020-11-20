@@ -25,31 +25,29 @@ def get_show_result(response):
 
 def recsearch(rec_ingredients=[]):
     client = Elasticsearch()
-    q = Q('bool', must=[Q('term', rec_ingredients=ingr) for ingr in rec_ingredients])
+    q = Q('bool', must=[Q('term', rec_ingredients__keyword=ingr) for ingr in rec_ingredients])
     s = Search(index="recipe_index").using(client).query(q)
     s = s[0:s.count()]
-    serv_a = A('terms', field='rec_servings.keyword').metric("top_hit_all","top_hits",size=s.count())
-    s.aggs.bucket('rec_servings_terms',serv_a)
+    ingr_a = A('terms', field='rec_ingredients.keyword')
+    s.aggs.bucket('rec_ingredients_terms', ingr_a)
     response = s.execute()
-
+    ingr_hints = {}
+    for i in response.aggs.rec_ingredients_terms:
+        ingr_hints[i.key] = i.doc_count
     search = get_search_results(response)
-    return search,s.count()
+    return search,s.count(),ingr_hints
 
 def get_search_results(response):
-    results = {}
-    for group in response.aggregations.rec_servings_terms.buckets:
-        key = group.key
-        count = group.doc_count
-        results[key]=({'count': count, 'docs': []})
-        for doc in group.top_hit_all.hits:
-            results[key]['docs'].append({
-                'title' : doc.rec_title,
-                'prep_time': doc.rec_prep_time,
-                'cook_time': doc.rec_cook_time,
-                'summary': get_summary(doc.rec_instructions),
-                'servings': doc.rec_servings,
-                'img': doc.rec_img,
-                'id': doc.meta.id})
+    results = []
+    for hit in response[1:]:
+        results.append({
+            'title' : hit.rec_title,
+            'prep_time': hit.rec_prep_time,
+            'cook_time': hit.rec_cook_time,
+            'summary': get_summary(hit.rec_instructions),
+            'servings': hit.rec_servings,
+            'img': hit.rec_img,
+            'id': hit.meta.id})
     return results
 
 def get_summary(instructions):
@@ -68,5 +66,5 @@ def get_summary(instructions):
 if __name__ == '__main__':  
     found = recsearch(rec_ingredients = ["bacon"])
     print("rec_prep_time 20 details:\n")
-    for f in found:
-    	print(found[f])
+    #for f in found:
+    	#print(f)

@@ -21,10 +21,12 @@ $(document).ready(function() {
             $(wrapper).append('</div>'); //add input box
             x++;
         }
-  else
-  {
-  alert('You Reached the limits')
-  }
+		else
+		{
+		  alert('You Reached the limits')
+		}
+
+
     });
  
     $(wrapper).on("click",".delete", function(e){
@@ -53,13 +55,18 @@ $(document).ready(function() {
 		  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 		  <button class="add_form_field">Add Ingredient &nbsp; <span style="font-size:16px; font-weight:bold;">+ </span></button>
 		</form>
+		{% for ingr_name,ingr_count in ingr_hints.items %}
+			<a>{{ ingr_name }} ({{ ingr_count }})</a>
+ 		{% endfor %}
+		<div>
+
+		</div>
 	</div>
 	{% if results %}
 	  <h5 style="text-align:center">{{ count }} recipes found</h5>
 	  <div class="container">
-	    {% for key,value in results.items %}
-	    {% for mytuple in value.docs %}
-	    <div class="well">
+	    {% for mytuple in results %}
+	    <div class="well for{{ mytuple.servings }}">
 	      <div class="media">
 	        <img class="media-object" style="float:left; margin:10px" src="{{ mytuple.img }}">
 	        <div class="media-body">
@@ -83,7 +90,6 @@ $(document).ready(function() {
 	         </div>
 	      </div>
 	    </div>
-	    {% endfor %}
 	    {% endfor %}
 
 	{% elif not search_term %}
