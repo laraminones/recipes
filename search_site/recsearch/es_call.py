@@ -25,15 +25,14 @@ def get_show_result(response):
 
 def recsearch(rec_ingredients=[]):
     client = Elasticsearch()
-    q = Q('bool', must=[Q('match', rec_ingredients__keyword=(ingr.lower())) for ingr in rec_ingredients])
+    q = Q('bool', must=[Q('match', rec_ingredients__keyword=ingr) for ingr in rec_ingredients])
     s = Search(index="recipe_index").using(client).query(q)
     s = s[0:s.count()]
-    ingr_a = A('terms', field='rec_ingredients.keyword')
+    ingr_a = A('terms', field='rec_ingredients.keyword', size=20)
     s.aggs.bucket('rec_ingredients_terms', ingr_a)
     response = s.execute()
-    ingr_hints = {}
-    for i in response.aggs.rec_ingredients_terms:
-        ingr_hints[i.key] = i.doc_count
+    ingr_hints = {i.key: i.doc_count-1 for i in response.aggs.rec_ingredients_terms if i.key not in rec_ingredients and i.doc_count-1>0}
+
     search = get_search_results(response)
     return search,s.count()-1,ingr_hints
 
