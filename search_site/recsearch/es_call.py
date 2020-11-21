@@ -25,7 +25,7 @@ def get_show_result(response):
 
 def recsearch(rec_ingredients=[]):
     client = Elasticsearch()
-    q = Q('bool', must=[Q('term', rec_ingredients__keyword=ingr) for ingr in rec_ingredients])
+    q = Q('bool', must=[Q('match', rec_ingredients__keyword=(ingr.lower())) for ingr in rec_ingredients])
     s = Search(index="recipe_index").using(client).query(q)
     s = s[0:s.count()]
     ingr_a = A('terms', field='rec_ingredients.keyword')
@@ -35,7 +35,7 @@ def recsearch(rec_ingredients=[]):
     for i in response.aggs.rec_ingredients_terms:
         ingr_hints[i.key] = i.doc_count
     search = get_search_results(response)
-    return search,s.count(),ingr_hints
+    return search,s.count()-1,ingr_hints
 
 def get_search_results(response):
     results = []
