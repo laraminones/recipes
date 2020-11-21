@@ -31,8 +31,14 @@ def recsearch(rec_ingredients=[]):
     ingr_a = A('terms', field='rec_ingredients.keyword', size=20)
     s.aggs.bucket('rec_ingredients_terms', ingr_a)
     response = s.execute()
-    ingr_hints = {i.key: i.doc_count-1 for i in response.aggs.rec_ingredients_terms if i.key not in rec_ingredients and i.doc_count-1>0}
-
+    aux = 0
+    ingr_hints={}
+    for i in response.aggs.rec_ingredients_terms:
+        if aux >= 10:
+            break
+        if i.key not in rec_ingredients and i.doc_count-1 >0:
+            ingr_hints[i.key] = i.doc_count-1
+            aux+=1
     search = get_search_results(response)
     return search,s.count()-1,ingr_hints
 

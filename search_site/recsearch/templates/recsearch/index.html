@@ -55,12 +55,19 @@ $(document).ready(function() {
 <div class="row">
 	<div class="column" style="top:20%;float:left;width:25%;margin:auto;position:fixed;">
 		<div style="width:80%;background-color:#becbb0;margin:auto;padding:2%;border-radius:2px">
-			<h4>These recipes also require...</h4>
-			{% for ingr_name,ingr_count in ingr_hints.items %}
-			<li style="list-style-type:none"><h4><a href="#" class="ingr_hint" value="{{ingr_name}}">{{ ingr_name }}</a> ({{ ingr_count }})</h4></li>
- 			{% endfor %}
+			{%if results %}
+				<h4>These recipes also require...</h4>
+				{% for ingr_name,ingr_count in ingr_hints.items %}
+				<li style="list-style-type:none"><h4><a href="#" class="ingr_hint" value="{{ingr_name}}">{{ ingr_name }}</a> ({{ ingr_count }})</h4></li>
+	 			{% endfor %}
+ 			{% else %}
+ 				<h5>
+ 					No recipes found, please specify a valid set of ingredients.
+ 				</h5>
+ 			{% endif %}
 		</div>
 	</div>
+
 	<div class="column" style="float:left;margin-left:25%;width:75%">
 		<div class="presentation">
 			<h1 style="font-family:'Baskerville';text-align:center">Recsearch - What do we eat today?</h1>
@@ -111,10 +118,6 @@ $(document).ready(function() {
 		      </div>
 		    </div>
 		    {% endfor %}
-		{% elif not search_term %}
-		  <h3>Insert your search here.</h3>
-		{% elif not results %}
-		  <p>No results found.</p>
 		{% endif %}
 		</div>
 </div>
