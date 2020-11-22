@@ -66,9 +66,9 @@ def get_summary(instructions):
         left -= to_add
         i += 1
     return summary + "..."
-    
 
-if __name__ == '__main__':  
+
+if __name__ == '__main__':
     found = recsearch(rec_ingredients = ["bacon"])
     print("rec_prep_time 20 details:\n")
     #for f in found:

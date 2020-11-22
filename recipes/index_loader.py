@@ -16,80 +16,90 @@ recipes = [{key: json.loads(line)[key] for key in json.loads(line).keys()}
 			 for line in rec_list]
 
 doc = {
-    "body":{
             "settings" : {
                 "analysis" : {
-                    "analyzer" : {
-                        "my_analyzer" : {
-                            "filter": [ "lowercase", "stemmer" ]
-                        }
+                  "analyzer": {
+                    "default": {
+                      "tokenizer": "whitespace",
+                      "filter": [ "lowercase", "stemmer" ]
                     }
+                  }
                 }
             },
-            "mapping":{
-                "properties":{
-                    "rec_cook_time": {
-                        "type":"text",
-                        "fields":{
-                            "keyword":{
-                                "type":"keyword",
-                                "ignore_adove":256
-                            }
-                        }
-                    },
-                    "rec_img": {
-                        "type":"text",
-                        "fields":{
-                            "keyword":{
-                                "type":"keyword",
-                                "ignore_adove":256
-                            }
-                        }
-                    },
-                    "rec_ingredients": {
-                        "type":"text",
-                        "analyzer": "my_analyzer",
-                        "search_analyzer": "my_analyzer",
-                        "fields":{
-                            "keyword":{
-                                "type":"keyword",                               
-                                "ignore_adove":256
-                            }
-                        }
-                    },
-                    "rec_prep_time": {
-                        "type":"text",
-                        "fields":{
-                            "keyword":{
-                                "type":"keyword",
-                                "ignore_adove":256
-                            }
-                        }
-                    },
-                    "rec_servings": {
-                        "type":"text",
-                        "fields":{
-                            "keyword":{
-                                "type":"keyword",
-                                "ignore_adove":256
-                            }
-                        }
-                    },
-                    "rec_title": {
-                        "type":"text",
-                        "analyzer": "my_analyzer",
-                        "search_analyzer": "my_analyzer",
-                        "fields":{
-                            "keyword":{
-                                "type":"keyword",
-                                "ignore_adove":256
-                            }
-                        }
-                    },
-                }
-            }
-
-    }
+              "mappings": {
+		    "properties": {
+		      "rec_cook_time": {
+			"type": "text",
+			"analyzer": "default",
+		        "fields": {
+		      	    "keyword": {
+				"type": "keyword",
+				"ignore_above": 256
+		      	    }
+		    	}
+		      },
+		      "rec_img": {
+			"type": "text",
+			"analyzer": "default",
+		        "fields": {
+		      	    "keyword": {
+				"type": "keyword",
+				"ignore_above": 256
+		      	    }
+		    	}
+		      },
+		      "rec_ingredients": {
+			"type": "text",
+			"analyzer": "default",
+		        "fields": {
+		      	    "keyword": {
+				"type": "keyword",
+				"ignore_above": 256
+		      	    }
+		    	}
+		      },
+		      "rec_instructions": {
+			"type": "text",
+			"analyzer": "default",
+		        "fields": {
+		      	    "keyword": {
+				"type": "keyword",
+				"ignore_above": 256
+		      	    }
+		    	}
+		      },
+		      "rec_prep_time": {
+			"type": "text",
+			"analyzer": "default",
+		        "fields": {
+		      	    "keyword": {
+				"type": "keyword",
+				"ignore_above": 256
+		      	    }
+		    	}
+		      },
+		      "rec_servings": {
+			"type": "text",
+			"analyzer": "default",
+		        "fields": {
+		      	    "keyword": {
+				"type": "keyword",
+				"ignore_above": 256
+		      	    }
+		    	}
+		      },
+		      "rec_title": {
+			"type": "text",
+			"analyzer": "default",
+		        "fields": {
+		      	    "keyword": {
+				"type": "keyword",
+				"ignore_above": 256
+		      	    }
+		    	}
+		    }
+		}
+	}
 }
 
 es.index(index='recipe_index',body=doc)
