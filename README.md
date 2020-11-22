@@ -4,7 +4,7 @@ This project is a search engine of cooking recipes, made for academic and testin
 
 By using Elasticsearch, Scrapy, Django and Python we provide some search functionalities over a reduced collection of cooking recipes.
 
-In order to do that and once the prerequisites are met, we crawl a cooking recipes site ([recipetineats.com](https://www.recipetineats.com/recipes/?fwp\_paged=)) using scrapy. Then we load obtained data in Elastic using a Python scritp. Finally, we provide the search and visualization functionalities through a web app made in Python. This app retrieves Elastic data by using query and aggregation methods the **elasticsearch_dsl** library provides.
+In order to do that and once the prerequisites are met, we crawl a cooking recipes site ([recipetineats.com](https://www.recipetineats.com/recipes/?fwp\_paged=)) using scrapy. Then we load the obtained data in Elasticsearch using a Python script. Finally, we provide the search and visualization functionalities through a web app made in Python. This app retrieves Elasticsearch's data by using query and aggregation methods the **elasticsearch_dsl** library provides.
 
 *The following prerequisites and execution instructions have been considered for a Ubuntu 20.04 LTS system.*
 ### Prerequisites
