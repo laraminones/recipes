@@ -67,5 +67,5 @@ $ python3 index_loader.py
 $ python3 manage.py runserver
 ```
 
-### Test the app
+### Try the app
 Navigate to localhost:8000/ on your prefered browser too see the app main page.
