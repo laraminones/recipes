@@ -16,12 +16,12 @@ $(document).ready(function() {
     $(add_button).click(function(e){
         e.preventDefault();
         if(x < max_fields){
+        	x++;
             $(wrapper).append('<div><input class="form-control mr-sm-2" type="text" name="ingr'+({{ search_terms|length }} + x)+'"/>');
-            if(x > 1) {
+            if(x > 0) {
             	$(wrapper).append('<a href="#" class="delete">Delete</a>');
            	} 
             $(wrapper).append('</div>'); //add input box
-            x++;
         }
 		else
 		{
