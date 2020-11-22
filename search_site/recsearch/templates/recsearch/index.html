@@ -1,0 +1,125 @@
+<!doctype html>
+<head>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script>
+$(document).ready(function() {
+    var max_fields      = 10;
+    var wrapper         = $(".container1");
+    var add_button      = $(".add_form_field");
+    var ingr_hint 		= $(".ingr_hint");
+    var search_form 	= $(".search_form");
+ 
+    var x = 0;
+
+    $(add_button).click(function(e){
+        e.preventDefault();
+        if(x < max_fields){
+        	x++;
+            $(wrapper).append('<div><input class="form-control mr-sm-2" type="text" name="ingr'+({{ search_terms|length }} + x)+'"/>');
+            if(x > 0) {
+            	$(wrapper).append('<a href="#" class="delete">Delete</a>');
+           	} 
+            $(wrapper).append('</div>'); //add input box
+        }
+		else
+		{
+		  alert('No more ingredients allowed')
+		}
+
+
+    });
+ 
+    $(wrapper).on("click",".delete", function(e){
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+        $(search_form).submit();
+    })
+
+    $(ingr_hint).click(function(e){
+    	e.preventDefault()
+    	if (x + {{search_terms|length}}<10){
+	    	$(wrapper).append('<div><input class="form-control mr-sm-2" type="text" name="ingr'+({{ search_terms|length }} + x)+'" value="'+this.getAttribute('value')+'"/>');
+	    	$(wrapper).append('<a href="#" class="delete">Delete</a>');
+	    	$(search_form).submit();
+	    } else
+	    {
+	    	alert('No more ingredients allowed')
+	    }
+    })
+});
+</script>
+</head>
+<html>
+<body style="background-color: #ebcbb0">
+<div class="row">
+	<div class="column" style="top:20%;float:left;width:25%;margin:auto;position:fixed;">
+		<div style="width:80%;background-color:#becbb0;margin:auto;padding:2%;border-radius:2px">
+			{%if results %}
+				<h4>These recipes also require...</h4>
+				{% for ingr_name,ingr_count in ingr_hints.items %}
+				<li style="list-style-type:none"><h4><a href="#" class="ingr_hint" value="{{ingr_name}}">{{ ingr_name }}</a> ({{ ingr_count }})</h4></li>
+	 			{% endfor %}
+ 			{% else %}
+ 				<h5>
+ 					No recipes found, please specify a valid set of ingredients.
+ 				</h5>
+ 			{% endif %}
+		</div>
+	</div>
+
+	<div class="column" style="float:left;margin-left:25%;width:75%">
+		<div class="presentation">
+			<h1 style="font-family:'Baskerville';text-align:center">Recsearch - What do we eat today?</h1>
+		</div>
+		<div class="search-box" style="margin:auto;width:25%">
+			<form class="form-inline my-2 my-lg-0 search_form">
+			  <div class="container1 form-inline my-2 my-lg-0">
+			      {% if search_terms %}
+			        {% for term in search_terms %}
+			        	<div><input class="form-control mr-sm-2" type="text" name="ingr{{ forloop.counter0 }}"
+			        		value='{{ term }}'><a href="#" class="delete">Delete</a></div>
+			        {% endfor %}
+			      {% else %}
+			      	<div><input class="form-control mr-sm-2" type="text" name="ingr0" placeholder="Search by ingredient..."></div>
+			      {% endif %}
+			  </div>
+			  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+			  <button class="add_form_field">Add Ingredient &nbsp; <span style="font-size:16px; font-weight:bold;">+ </span></button>
+			</form>
+		</div>
+		<div style="margin:auto">
+		{% if results %}
+		  <h5 style="text-align:center">{{ count }} recipes found</h5>
+		  <div class="container">
+		    {% for mytuple in results %}
+		    <div class="well for{{ mytuple.servings }}">
+		      <div class="media">
+		        <img class="media-object" style="float:left; margin:10px" src="{{ mytuple.img }}">
+		        <div class="media-body">
+		          <h4><a href="{% url 'recsearch:show_view' mytuple.id %}"> {{ mytuple.title }} </a></h4>
+		            <p>{{ mytuple.summary }}</p>
+		            <ul class="list-inline list-unstyled">
+		              <li>
+		                <span>
+		                  <i class="glyphicon glyphicon-cutlery"></i><b> Servings:</b> {{ mytuple.servings }} 
+		                </span>
+		              </li>
+		              <li>|</li>
+		              <span>
+		                <i class="glyphicon glyphicon-time"></i><b> Prep Time:</b>  {{ mytuple.prep_time }}
+		              </span>
+		              <li>|</li>
+		              <span>
+		                <i class="glyphicon glyphicon-time"></i><b> Cook Time:</b> {{ mytuple.cook_time }}
+		              </span>
+		            </ul>
+		         </div>
+		      </div>
+		    </div>
+		    {% endfor %}
+		{% endif %}
+		</div>
+</div>
+</body>
+</html>
